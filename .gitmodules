@@ -1,0 +1,3 @@
+[submodule "dependencies/xoceanlib"]
+	path = dependencies/xoceanlib
+	url = https://github.com/southcraftx/xoceanlib
