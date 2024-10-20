@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "midistream.h": "c",
+        "condlock.h": "c"
+    }
+}
