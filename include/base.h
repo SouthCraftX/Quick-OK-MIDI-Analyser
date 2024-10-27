@@ -3,6 +3,15 @@
 
 #include "xoceanlib/include/base.h"
 
+#define qoma_true   xoc_true
+#define qoma_false  xoc_false
+
+#if XOC_SYSTEM_BIT(64)
+#define QOMA_64BIT_AVALIABLE 1
+#else
+#define QOMA_64BIT_AVALIABLE 0
+#endif
+
 typedef xoc_uint8_t     qoma_uint8_t;
 typedef xoc_uint16_t    qoma_uint16_t;
 typedef xoc_uint32_t    qoma_uint32_t;
@@ -18,11 +27,18 @@ typedef xoc_flag16_t    qoma_flag16_t;
 typedef xoc_flag32_t    qoma_flag32_t;
 typedef xoc_flag64_t    qoma_flag64_t;
 
+typedef xoc_fp32_t      qoma_fp32_t;
+typedef xoc_fp64_t      qoma_fp64_t;
+
 typedef xoc_size_t      qoma_size_t;
 typedef xoc_ssize_t     qoma_ssize_t;
 typedef xoc_offset_t    qoma_offset_t;
 typedef xoc_bool_t      qoma_bool_t;
 typedef xoc_stat_t      qoma_stat_t;
+typedef xoc_byte_t      qoma_byte_t;
+
+typedef xoc_uintmax_t   qoma_uintmax_t;
+typedef xoc_intmax_t    qoma_intmax_t;
 
 typedef xoc_cstring_t   qoma_cstring_t;
 typedef xoc_ccstring_t  qoma_ccstring_t;
@@ -34,6 +50,12 @@ typedef xoc_ref_count_t qoma_ref_count_t;
 typedef xoc_flag8_t     qoma_midi_format_t;
 typedef xoc_uint16_t    qoma_midi_resolution_t;
 typedef xoc_uint16_t    qoma_track_count_t;
+
+#if XOC_SYSTEM_BIT(64)
+typedef xoc_fp64_t      qoma_tempo_t;
+#else
+typedef xoc_fp32_t      qoma_tempo_t;
+#endif
 
 #define QOMA_DEPRCATED      XOC_DEPRECATED
 #define QOMA_THREAD_LOCAL   XOC_THREAD_LOCAL
@@ -70,5 +92,8 @@ typedef xoc_uint16_t    qoma_track_count_t;
 #define QOMA_TARGET_BUSY        XOC_TARGET_BUSY
 #define QOMA_ACCESS_VIOLATED    XOC_ACCESS_VIOLATED
 
-
+// Describe whether the argument is in or out.
+#define _QOMA_IN_
+#define _QOMA_OUT_
+#define _QOMA_INOUT_
 

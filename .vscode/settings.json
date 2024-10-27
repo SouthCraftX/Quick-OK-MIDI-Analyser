@@ -1,6 +1,10 @@
 {
     "files.associations": {
         "midistream.h": "c",
-        "condlock.h": "c"
-    }
+        "condlock.h": "c",
+        "track.h": "c",
+        "base.h": "c",
+        "tick_basic_statistics.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "enabled"
 }

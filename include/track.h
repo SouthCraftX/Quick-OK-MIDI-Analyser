@@ -22,6 +22,9 @@ qoma_track_get_size(
     QOMA_Track * track
 );
 
+/// @brief Get pointer to raw events data.
+/// @param track 
+/// @return 
 qoma_byte_t const *
 qoma_track_get_content(
     QOMA_Track * track

@@ -39,8 +39,10 @@ struct _QOMA_Allocator
 };
 typedef struct _QOMA_Allocator  QOMA_Allocator;
 
-#define QOMA_ALLOCATION_PHYSICAL_LIMIT 0b0
-#define QOMA_ALLOCATION_SPECIFIC_LIMIT 0b1
+// Modes for qoma_set_allocation_behavior
+#define QOMA_ALLOC_PHYSICAL_LIMIT 0b0
+#define QOMA_ALLOC_SPECIFIC_LIMIT 0b1
+#define QOMA_ALLOC_AS_PHYSICAL_PERCENTAGE 0b10
 
 /// @brief  Set allocation behavior
 /// @param  p_allocator Pointer to allocator function sets. All function 
@@ -50,6 +52,7 @@ typedef struct _QOMA_Allocator  QOMA_Allocator;
 ///         physical memory into consideration, which may make the allocable
 ///         memory size less than the specified size. Make it 0 to disable
 ///         the limit.
+/// @param  mode 
 /// @return The status of the operation
 /// @retval QOMA_INVALID_OBJECT p_allocator contains NULL pointer
 /// @note   If abs(size) is unreasonably small, the function will still succeed
@@ -57,7 +60,8 @@ typedef struct _QOMA_Allocator  QOMA_Allocator;
 qoma_stat_t
 qoma_set_allocation_behavior(
     QOMA_Allocator *    p_allocator ,
-    qoma_ssize_t        size 
+    qoma_ssize_t        size ,
+    qoma_flag32_t       mode
 );
 
 /// @brief Get allocation behavior

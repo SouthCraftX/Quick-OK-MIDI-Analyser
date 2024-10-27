@@ -24,6 +24,22 @@ struct _QOMA_MIDIStream
     
 };
 
+
+qoma_bool_t
+__precheck_track_validity(
+    qoma_byte_t * buf
+){
+    const char head_mark = {'M' , 'T' , 'r' , 'k'};
+    if(memcmp(buf , &head_mark , 4))
+    {
+        return qoma_false;
+    }
+
+    const qoma_int32_t track_length = *(qoma_int32_t *)(buf + 4);
+    
+    // TODO
+}
+
 qoma_stat_t
 qoma_midistream_open(
     qoma_midistream_t * p_midistream ,
