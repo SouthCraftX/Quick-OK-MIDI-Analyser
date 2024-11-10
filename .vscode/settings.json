@@ -4,7 +4,8 @@
         "condlock.h": "c",
         "track.h": "c",
         "base.h": "c",
-        "tick_basic_statistics.h": "c"
+        "tick_basic_statistics.h": "c",
+        "atomic.h": "c"
     },
     "C_Cpp.errorSquiggles": "enabled"
 }
