@@ -51,6 +51,8 @@ typedef xoc_flag8_t     qoma_midi_format_t;
 typedef xoc_uint16_t    qoma_midi_resolution_t;
 typedef xoc_uint16_t    qoma_track_count_t;
 
+typedef qoma_uintmax_t  qoma_tick_t;
+
 #if XOC_SYSTEM_BIT(64)
 typedef xoc_fp64_t      qoma_tempo_t;
 #else
@@ -79,6 +81,7 @@ typedef xoc_fp32_t      qoma_tempo_t;
 #define QOMA_FORCE_INLINE   XOC_FORCE_INLINE
 #define QOMA_ALIGNAS        XOC_ALIGNAS
 
+#define QOMA_OK                 XOC_OK
 #define QOMA_NOT_SUPPORTED      XOC_NOT_SUPPORTED
 #define QOMA_BAD_IO             XOC_BAD_IO
 #define QOMA_NOT_FOUND          XOC_NOT_FOUND
@@ -91,6 +94,12 @@ typedef xoc_fp32_t      qoma_tempo_t;
 #define QOMA_DISK_NO_SPACE      XOC_DISK_NO_SPACE
 #define QOMA_TARGET_BUSY        XOC_TARGET_BUSY
 #define QOMA_ACCESS_VIOLATED    XOC_ACCESS_VIOLATED
+
+enum QOMA_SpecificError
+{
+    QOMA_TRACK_LENGTH_MISMATCH = 5000,
+    QOMA_BAD_TRACK,
+};
 
 // Describe whether the argument is in or out.
 #define _QOMA_IN_

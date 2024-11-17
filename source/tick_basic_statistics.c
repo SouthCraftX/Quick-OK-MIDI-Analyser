@@ -5,7 +5,7 @@ struct _QOMA_TickBasicStatistics
 {
     qoma_ref_count_t    reference_count;
 
-    qoma_size_t         tick_count;
+    qoma_size_t         tick_count; // Used
     qoma_size_t         free_count;
     qoma_size_t         allocated_size;
 
@@ -56,6 +56,7 @@ qoma_tick_basic_statistics_get_end(
     return p_tick_basic_statistics->mono_end;
 }
 
+// Return true if succeed
 qoma_bool_t
 qoma_tick_basic_statistics_extend(
     QOMA_TickBasicStatistics ** pp_tick_basic_statistics ,
@@ -78,6 +79,7 @@ qoma_tick_basic_statistics_extend(
     }
 }
 
+// Return true if succeed
 QOMA_FORCE_INLINE
 qoma_bool_t
 __extend_for_add(
@@ -106,4 +108,22 @@ add:
     (*pp_tick_basic_statistics)->free_count--;
     (*pp_tick_basic_statistics)->tick_count++;
     return qoma_true;
+}
+
+//
+QOMA_TickBasicStatisticsMono *
+qoma_tick_basic_statistics_reach(
+    QOMA_TickBasicStatistics ** pp_tick_basic_statistics ,
+    qoma_tick_t                 index
+){
+    while (index <= (*pp_tick_basic_statistics)->tick_count +(*pp_tick_basic_statistics)->free_count)
+    {
+        // This is a temperorary solution. I plan to replace it with once extending
+        if(__extend_for_add(pp_tick_basic_statistics))
+        {
+            continue;
+        }
+        return QOMA_OUT_OF_MEMORY;
+    }
+    return (*pp_tick_basic_statistics)->mono[index];
 }

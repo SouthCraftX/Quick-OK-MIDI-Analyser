@@ -7,19 +7,35 @@
 extern "C" {
 #endif
 
-struct _QOMA_TickBasicStatisticsMono32
+union _QOMA_TickBasicStatisticsMono32
 {
-    qoma_uint32_t   noteon_count;
-    qoma_uint32_t   noteoff_count;
-    qoma_uint32_t   tempo_change;   //< Quarter Note per millionsecond .0 indicates no tempo change
+    struct {
+        qoma_uint32_t   noteon_count;
+        qoma_uint32_t   noteoff_count;
+        qoma_uint32_t   tempo_change_us;   //< Quarter Note per millionsecond .0 indicates no tempo change
+    };
+    struct
+    {
+        qoma_uint32_t   noteinfo[2];
+        qoma_uint32_t   tempo_change_us;
+    };
 };
-typedef struct _QOMA_TickBasicStatisticsMono32 QOMA_TickBasicStatisticsMono32;
+typedef union _QOMA_TickBasicStatisticsMono32 QOMA_TickBasicStatisticsMono32;
 
-struct _QOMA_TickBasicStatisticsMono64
+union _QOMA_TickBasicStatisticsMono64
 {
-    qoma_uint64_t   noteon_count;
-    qoma_uint64_t   noteoff_count;
-    qoma_uint32_t   tempo_change;   //< Tick per .0 indicates no tempo change
+    struct 
+    {
+        qoma_uint64_t   noteon_count;
+        qoma_uint64_t   noteoff_count;
+        qoma_uint32_t   tempo_change_us;   //< Tick per .0 indicates no tempo change. Unit: microsecond
+    };
+    struct 
+    {
+        qoma_uint64_t   noteinfo[2];
+        qoma_uint32_t   tempo_change_us;
+    }
+    
 };
 typedef struct _QOMA_TickBasicStatisticsMono64 QOMA_TickBasicStatisticsMono64;
 
@@ -108,6 +124,12 @@ qoma_tick_basic_statistics_add_at(
     QOMA_TickBasicStatistics **     pp_tick_basic_statistics ,
     qoma_size_t                     index ,
     QOMA_TickBasicStatisticsMono    mono
+) QOMA_NONNULL(1);
+
+QOMA_TickBasicStatisticsMono *
+qoma_tick_basic_statistics_reach(
+    QOMA_TickBasicStatistics ** pp_tick_basic_statistics ,
+    qoma_tick_t                 index
 ) QOMA_NONNULL(1);
 
 /// @brief  Merge the source statistics object into the target statistics object.

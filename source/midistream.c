@@ -24,25 +24,32 @@ struct _QOMA_MIDIStream
     
 };
 
-
+// Return true if the track is OK
 qoma_bool_t
 __precheck_track_validity(
-    qoma_byte_t * buf
+    qoma_byte_t * buffer ,
+    qoma_uint32_t * p_track_length  
 ){
     const char head_mark = {'M' , 'T' , 'r' , 'k'};
-    if(memcmp(buf , &head_mark , 4))
+    if(memcmp(buffer , &head_mark , 4))
     {
         return qoma_false;
     }
 
-    const qoma_int32_t track_length = *(qoma_int32_t *)(buf + 4);
+    const qoma_int32_t track_length = *(qoma_int32_t *)(buffer + 4);
+    *p_track_length = track_length;
     
-    // TODO
+    buffer += track_length - 3;
+    if (buffer[0] == 0xFF && buffer[1] == 0x2F  && buffer[2] == 0x00)
+    {
+        return qoma_true;
+    }
+    return qoma_false;
 }
 
 qoma_stat_t
 qoma_midistream_open(
-    qoma_midistream_t * p_midistream ,
+    QOMA_MIDIStream **   pp_midistream ,
     qoma_ccstring_t      midi_path ,
     qoma_flag32_t        creation_flags
 ){

@@ -7,9 +7,10 @@
 extern "C" {
 #endif // defined(__cplusplus)
 
+// We will move it to one byte after the delta time VLA
 xoc_uint32_t
-qoma_varint_to_u32le(
-    const xoc_byte_t * start
+qoma_delta_time_read(
+    const xoc_byte_t ** pp_start
 );
 
 

@@ -5,7 +5,8 @@
         "track.h": "c",
         "base.h": "c",
         "tick_basic_statistics.h": "c",
-        "atomic.h": "c"
+        "atomic.h": "c",
+        "universal_calculation.h": "c"
     },
     "C_Cpp.errorSquiggles": "enabled"
 }
