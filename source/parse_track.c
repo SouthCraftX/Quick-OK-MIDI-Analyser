@@ -6,24 +6,24 @@
 
 // Move to one byte after sysex event
 // Return true if the 0xF7 byte isn't found, which indicates the track is corrupted. 
-qoma_bool_t
+qo_bool_t
 __skip_sysex(
-    qoma_byte_t **  p_buffer ,
-    qoma_uint32_t   search_limit
+    qo_byte_t **  p_buffer ,
+    qo_uint32_t   search_limit
 ) {
-    qoma_byte_t * ret = memchr(*p_buffer , 0xF7 , search_limit);
+    qo_byte_t * ret = memchr(*p_buffer , 0xF7 , search_limit);
     if (QOMA_LIKELY(ret))
     {
         *p_buffer = ret + 1;
         return qoma_false;
     }
-    return qoma_true;
+    return qo_true;
 }
 
 // Return true if EOT reached
-qoma_bool_t
+qo_bool_t
 __parse_meta_event(
-    qoma_byte_t ** p_buffer , //<Point to 0xFF next byte
+    qo_byte_t ** p_buffer , //<Point to 0xFF next byte
     QOMA_TickBasicStatisticsMono * mono
 ) {
     // Only EOT and tempo changing events are useful to us.
@@ -31,13 +31,13 @@ __parse_meta_event(
     {
         case 0x51: // Tempo Change
             *p_buffer ++;
-            mono->tempo_change_us += (*(qoma_uint32_t *)(*p_buffer) & 0x00FFFFFF);
+            mono->tempo_change_us += (*(qo_uint32_t *)(*p_buffer) & 0x00FFFFFF);
             // do bitwise to get length indicator 0x03 off
-            *p_buffer += sizeof(qoma_uint32_t);
+            *p_buffer += sizeof(qo_uint32_t);
             return qoma_false;
 
         case 0x2F:  // EOT
-            return qoma_true;
+            return qo_true;
 
         default:
             *p_buffer += 1; // Go to length byte
@@ -47,18 +47,18 @@ __parse_meta_event(
 
 
 
-qoma_stat_t
+qo_stat_t
 __parse_track(
-    qoma_byte_t * buffer , //<First event begin
-    qoma_uint32_t length , //<Length except the track meta 
+    qo_byte_t * buffer , //<First event begin
+    qo_uint32_t length , //<Length except the track meta 
     QOMA_TickBasicStatistics ** pp_tick_stat
 ) {
-    const qoma_byte_t * end = buffer + length;
+    const qo_byte_t * end = buffer + length;
     QOMA_TickBasicStatisticsMono * mono; 
     qoma_tick_t         ticks;
-    qoma_uint32_t       delta_tick;
-    qoma_bool_t         eot_reached;
-    qoma_uint8_t        last_noteoff_arg;
+    qo_uint32_t       delta_tick;
+    qo_bool_t         eot_reached;
+    qo_uint8_t        last_noteoff_arg;
 
     do
     {

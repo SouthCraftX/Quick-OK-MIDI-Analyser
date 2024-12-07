@@ -11,24 +11,24 @@ struct _QOMA_Allocator
 {
     qoma_pointer_t
     (* malloc)(
-        qoma_size_t     size
+        qo_size_t     size
     );
 
     qoma_pointer_t
     (* realloc)(
         qoma_pointer_t  memory ,
-        qoma_size_t     new_size
+        qo_size_t     new_size
     );
 
     qoma_pointer_t
     (* calloc)(
-        qoma_size_t     size
+        qo_size_t     size
     );
 
     qoma_pointer_t
     (* recalloc)(
         qoma_pointer_t  memory ,
-        qoma_size_t     new_size 
+        qo_size_t     new_size 
     );
 
     void
@@ -57,7 +57,7 @@ typedef struct _QOMA_Allocator  QOMA_Allocator;
 /// @retval QOMA_INVALID_OBJECT p_allocator contains NULL pointer
 /// @note   If abs(size) is unreasonably small, the function will still succeed
 ///         but you may make many functions fail if it requires allocation.
-qoma_stat_t
+qo_stat_t
 qoma_set_allocation_behavior(
     QOMA_Allocator *    p_allocator ,
     qoma_ssize_t        size ,

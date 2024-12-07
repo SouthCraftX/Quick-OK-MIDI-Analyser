@@ -1,5 +1,5 @@
 #include "statistics.h"
 
-struct _QOMA_Statistics {
+struct _qo_statistics {
     
 }

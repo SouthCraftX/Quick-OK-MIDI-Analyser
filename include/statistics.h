@@ -1,5 +1,5 @@
 #pragma once
-#define __QOMA_STATISTICS_H__
+#define __qo_statISTICS_H__
 
 #include "tick_basic_statistics.h"
 #include "time_based_statistics.h"

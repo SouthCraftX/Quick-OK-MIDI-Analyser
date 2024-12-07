@@ -11,27 +11,24 @@ extern "C" {
 
 struct _QOMA_MIDIStream;
 typedef struct _QOMA_MIDIStream QOMA_MIDIStream;
-typedef QOMA_MIDIStream * QOMA_MIDIStream *;
-
-
 
 struct _QOMA_MIDIFileInfo
 {
-    qoma_ccstring_t  file_path;
-    qoma_ccstring_t  filename;
-    qoma_uint16_t    file_path_length;
-    qoma_uint16_t    filename_length;
-    qoma_size_t      file_size;
+    qo_ccstring_t  file_path;
+    qo_ccstring_t  filename;
+    qo_uint16_t    file_path_length;
+    qo_uint16_t    filename_length;
+    qo_size_t      file_size;
 };
 typedef struct _QOMA_MIDIFileInfo QOMA_MIDIFileInfo;
 
 struct _QOMA_MIDIStreamCacheStat
 {
-    qoma_bool_t          will_automatically_cache_forward;
+    qo_bool_t          will_automatically_cache_forward;
     qoma_track_count_t  active_cached_track_count;
     qoma_track_count_t  discarded_cached_track_count;
-    qoma_size_t          active_cache_size;
-    qoma_size_t          discarded_cache_size;
+    qo_size_t          active_cache_size;
+    qo_size_t          discarded_cache_size;
 };
 typedef struct _QOMA_MIDIStreamCacheStat QOMA_MIDIStreamCacheStat;
 
@@ -75,10 +72,10 @@ typedef struct _QOMA_MIDIStreamCacheStat QOMA_MIDIStreamCacheStat;
 /// @param  midi_path        Path to the midi file
 /// @param  creation_flags   Flags for creation
 /// @return The error descriptor if failed, otherwise NULL
-XOC_ErrDesc *
+QO_ErrDesc *
 qoma_midistream_open(
-    QOMA_MIDIStream **      p_midistream ,
-    qoma_ccstring_t          midi_path ,
+    QOMA_MIDIStream **       pp_midistream ,
+    qo_ccstring_t          midi_path ,
     qoma_flag32_t            creation_flags
 );
 
@@ -86,7 +83,7 @@ qoma_midistream_open(
 /// @param  p_midistream The midi stream
 /// @param  p_midimeta Pointer to the meta information
 /// @return The status of the operation
-qoma_stat_t
+qo_stat_t
 qoma_midistream_query_meta(
     QOMA_MIDIStream *       p_midistream ,
     QOMA_MIDIMeta *         p_midimeta
@@ -104,7 +101,7 @@ qoma_midistream_unref(
 /// @param p_midistream    The midi stream
 /// @param p_cache_stat  Pointer to the cache status
 /// @return The status of the operation
-qoma_stat_t
+qo_stat_t
 qoma_midistream_get_cache_stat(
     QOMA_MIDIStream *           p_midistream ,
     QOMA_MIDIStreamCacheStat *  p_cache_stat
@@ -114,7 +111,7 @@ qoma_midistream_get_cache_stat(
 /// @param  p_midistream The midi stream
 /// @param  p_fileinfo Pointer to the file information
 /// @return The status of the operation
-qoma_stat_t
+qo_stat_t
 qoma_midistream_query_file_info(
     QOMA_MIDIStream *       p_midistream ,
     QOMA_MIDIFileInfo *     p_fileinfo
@@ -128,7 +125,7 @@ qoma_midistream_query_file_info(
 /// @retval QOMA_OK if successful
 /// @retval QOMA_ACCESS_VIOLATED if the stream is bound to another object and it
 ///         requires exclusive access
-qoma_stat_t
+qo_stat_t
 qoma_midistream_fetch_track(
     QOMA_MIDIStream *       p_midistream ,
     QOMA_Track **           pp_track 

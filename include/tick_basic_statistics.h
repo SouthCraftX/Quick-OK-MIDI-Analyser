@@ -10,14 +10,14 @@ extern "C" {
 union _QOMA_TickBasicStatisticsMono32
 {
     struct {
-        qoma_uint32_t   noteon_count;
-        qoma_uint32_t   noteoff_count;
-        qoma_uint32_t   tempo_change_us;   //< Quarter Note per millionsecond .0 indicates no tempo change
+        qo_uint32_t   noteon_count;
+        qo_uint32_t   noteoff_count;
+        qo_uint32_t   tempo_change_us;   //< Quarter Note per millionsecond .0 indicates no tempo change
     };
     struct
     {
-        qoma_uint32_t   noteinfo[2];
-        qoma_uint32_t   tempo_change_us;
+        qo_uint32_t   noteinfo[2];
+        qo_uint32_t   tempo_change_us;
     };
 };
 typedef union _QOMA_TickBasicStatisticsMono32 QOMA_TickBasicStatisticsMono32;
@@ -26,14 +26,14 @@ union _QOMA_TickBasicStatisticsMono64
 {
     struct 
     {
-        qoma_uint64_t   noteon_count;
-        qoma_uint64_t   noteoff_count;
-        qoma_uint32_t   tempo_change_us;   //< Tick per .0 indicates no tempo change. Unit: microsecond
+        qo_uint64_t   noteon_count;
+        qo_uint64_t   noteoff_count;
+        qo_uint32_t   tempo_change_us;   //< Tick per .0 indicates no tempo change. Unit: microsecond
     };
     struct 
     {
-        qoma_uint64_t   noteinfo[2];
-        qoma_uint32_t   tempo_change_us;
+        qo_uint64_t   noteinfo[2];
+        qo_uint32_t   tempo_change_us;
     }
     
 };
@@ -60,7 +60,7 @@ qoma_tick_basic_statistics_new();
 void
 qoma_tick_basic_statistics_ref(
     QOMA_TickBasicStatistics * p_tick_basic_statistics
-) QOMA_NONNULL(1);
+) QO_NONNULL(1);
 
 /// @brief  Reduce the reference count of the statistics object. If the reference
 ///         count reaches zero, the object will be destroyed.
@@ -80,7 +80,7 @@ qoma_tick_basic_statistics_unref(
 QOMA_TickBasicStatisticsMono *
 qoma_tick_basic_statistics_get_begin(
     QOMA_TickBasicStatistics * p_tick_basic_statistics
-) QOMA_NONNULL(1);
+) QO_NONNULL(1);
 
 /// @brief  Get the last mono of the statistics object.
 /// @param  p_tick_basic_statistics Pointer to the statistics object.
@@ -90,60 +90,60 @@ qoma_tick_basic_statistics_get_begin(
 QOMA_TickBasicStatisticsMono *
 qoma_tick_basic_statistics_get_end(
     QOMA_TickBasicStatistics * p_tick_basic_statistics
-) QOMA_NONNULL(1);
+) QO_NONNULL(1);
 
 /// @brief  Extend the statistics object to hold more monos.
 /// @param  pp_tick_basic_statistics Pointer to the pointer to the statistics
 ///         object. The pointer will be updated to point to the new object.
 /// @param  mono_count The number of monos to extend.
-/// @return qoma_true if succeeded. qoma_false if failed.
-qoma_bool_t
+/// @return qo_true if succeeded. qoma_false if failed.
+qo_bool_t
 qoma_tick_basic_statistics_extend(
     QOMA_TickBasicStatistics ** pp_tick_basic_statistics ,
-    qoma_size_t                 mono_count
-) QOMA_NONNULL(1);
+    qo_size_t                 mono_count
+) QO_NONNULL(1);
 
 /// @brief  Add a mono to the statistics object.
 /// @param  pp_tick_basic_statistics Pointer to the pointer to the statistics
 ///         object. The pointer may be updated to point to the new object if
 ///         the object needs to be extended.
 /// @param  mono The mono to add.
-qoma_bool_t
+qo_bool_t
 qoma_tick_basic_statistics_add(
     QOMA_TickBasicStatistics **     pp_tick_basic_statistics ,
     QOMA_TickBasicStatisticsMono    mono
-) QOMA_NONNULL(1);
+) QO_NONNULL(1);
 
 /// @brief  Add a mono to the statistics object at the specified index.
 /// @param  pp_tick_basic_statistics Pointer to the pointer to the statistics
 ///         object. The pointer may be updated to point to the new object if
 ///         the object needs to be extended.
 /// @param  index The index to add the mono.
-qoma_bool_t
+qo_bool_t
 qoma_tick_basic_statistics_add_at(
     QOMA_TickBasicStatistics **     pp_tick_basic_statistics ,
-    qoma_size_t                     index ,
+    qo_size_t                     index ,
     QOMA_TickBasicStatisticsMono    mono
-) QOMA_NONNULL(1);
+) QO_NONNULL(1);
 
 QOMA_TickBasicStatisticsMono *
 qoma_tick_basic_statistics_reach(
     QOMA_TickBasicStatistics ** pp_tick_basic_statistics ,
     qoma_tick_t                 index
-) QOMA_NONNULL(1);
+) QO_NONNULL(1);
 
 /// @brief  Merge the source statistics object into the target statistics object.
 /// @param  pp_target Pointer to the pointer to the target statistics object.
 ///         The pointer may be updated to point to the new object if the
 ///         object needs to be extended.
 /// @param  p_source Pointer to the source statistics object.
-/// @return qoma_true if succeeded. qoma_false if pp_target needs to be extended
+/// @return qo_true if succeeded. qoma_false if pp_target needs to be extended
 ///         but failed.
-qoma_bool_t
+qo_bool_t
 qoma_tick_basic_statistics_merge(
     QOMA_TickBasicStatistics **     pp_target ,
     QOMA_TickBasicStatistics *      p_source
-) QOMA_NONNULL(1 , 2);
+) QO_NONNULL(1 , 2);
 
 /// @brief  Analyse the track and update the statistics object.
 /// @param  pp_tick_basic_statistics Pointer to the pointer to the statistics
@@ -153,11 +153,11 @@ qoma_tick_basic_statistics_merge(
 /// @return The status of the analysis.
 /// @note   If allocation fails during the analysis, the content of the
 ///         statistics object is undefined.
-qoma_stat_t
+qo_stat_t
 qoma_track_analyse(
     QOMA_TickBasicStatistics ** pp_tick_basic_statistics ,
     QOMA_Track * p_track
-) QOMA_NONNULL(1 , 2);
+) QO_NONNULL(1 , 2);
 
 /// @brief  Iterate over the monos of the statistics object.
 #define QOMA_TRACK_BASIC_STATISTICS_ITERATE(p_tick_basic_statistics , p_mono) \
